@@ -1,0 +1,1 @@
+export { bgImages } from "./bg-images";
