@@ -1,0 +1,14 @@
+{
+	"manifest_version": 3,
+	"name": "Retro Focus",
+	"author": "Naveen Chandar",
+	"version": "1.5",
+	"description": "A browser extension that will help you focus and increase your work productivity",
+	"chrome_url_overrides": {
+		  "newtab": "index.html"
+	  },
+	"browser_action": {
+	  "default_icon": "favicon.jpg",
+	  "default_title": "Retro Focus"
+	}
+  }
