@@ -1,5 +1,6 @@
 import React from "react";
 import { Focus, GetTimeAndDate, Quotes, Weather } from "../components";
+import { Todo } from "../components/Todo";
 
 export const Home = () => {
   return (
@@ -18,6 +19,10 @@ export const Home = () => {
 
       <span className="m-4 absolute bottom-14">
         <Quotes />
+      </span>
+
+      <span className="m-1">
+        <Todo />
       </span>
     </div>
   );
