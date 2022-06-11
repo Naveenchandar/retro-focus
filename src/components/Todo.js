@@ -102,7 +102,7 @@ export const Todo = () => {
             </div>
             <input
               type="text"
-              className="rounded-md cursor-pointer flex ml-2"
+              className="rounded-md cursor-pointer flex ml-2 text-black pl-2"
               placeholder="Search Todo"
               value={searchText}
               onChange={(e) => filterTodoBySearchText(e.target.value)}
