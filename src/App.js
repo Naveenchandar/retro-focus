@@ -1,17 +1,30 @@
+import { useEffect, useState } from "react";
+import { useUserInfo } from "./contexts";
 import { bgImages } from "./database";
-import { UserForm } from "./pages";
+import { UserForm, Home } from "./pages";
 
-const App = () => {
-  const bgImage = bgImages[Math.floor(Math.random() * bgImages.length)];
+function App() {
+  const { state: { userName }, dispatch } = useUserInfo();
+  const [backgroudImage, setBackgroundImage] = useState('');
+  
+  useEffect(() => {
+    const getName=localStorage.getItem("retro-focus");
+    const bgImage = bgImages[Math.floor(Math.random() * bgImages.length)];
+    setBackgroundImage(bgImage);
+    dispatch({
+      type: "SET_USERNAME",
+      payload: getName,
+    });
+  }, []);
 
   return (
     <div
       className="h-screen bg-center bg-no-repeat bg-cover"
       style={{
-        backgroundImage: `url("${bgImage}")`,
+        backgroundImage: `url("${backgroudImage}")`
       }}
     >
-      {<UserForm />}
+      {userName ? <Home /> : <UserForm />}
     </div>
   );
 }

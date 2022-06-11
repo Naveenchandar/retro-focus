@@ -19,3 +19,7 @@
 .border-class {
   border-bottom: 0.15rem solid #fff;
 }
+
+.weather-icon {
+  backdrop-filter: invert(1);
+}
