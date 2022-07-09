@@ -97,7 +97,7 @@ export const Todo = () => {
                 className="cursor-pointer text-emerald-500"
                 onClick={() => setOpenTodo(!openTodo)}
               >
-                <ImCross size={14} />
+                <ImCross size={14} title="Close Todo" />
               </span>
             </div>
             <input
@@ -124,19 +124,20 @@ export const Todo = () => {
                     name={text}
                     value={text}
                     onClick={() => handleTodos(id)}
+                    title="Strike Todo"
                   />
                   <span className="sm:text-xl m-0.5">{text}</span>
                   <span
                     className="px-1.5 text-lime-400 cursor-pointer"
                     onClick={() => editHandler(id)}
                   >
-                    <FaEdit size={18} />
+                    <FaEdit size={18} title="Edit Todo" />
                   </span>
                   <span
                     className="text-red-600 cursor-pointer"
                     onClick={() => deleteHandler(id)}
                   >
-                    <AiFillDelete size={20} />
+                    <AiFillDelete size={20} title="Delete Todo" />
                   </span>
                 </li>
               ))}
