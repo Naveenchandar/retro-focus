@@ -1,15 +1,21 @@
+import { Action, InitialStateType } from "./user-reducer.type";
+
 const initState = {
   userName: "",
-  time: "",
+  time: 0,
   greetings: "",
   tasks: "",
   quotesOfTheDay: "",
 }
 
-const userReducer = (state, action) => {
+type AppState = typeof initState;
+
+const userReducer = (state = initState as InitialStateType, action: Action): AppState => {
   switch (action.type) {
     case "SET_USERNAME":
-      localStorage.setItem("retro-focus", action.payload);
+      if (typeof action.payload === 'string') {
+        localStorage.setItem("retro-focus", action.payload);
+      }
       return { ...state, userName: action.payload };
     case "FETCH_TIME":
       return { ...state, time: action.payload };
