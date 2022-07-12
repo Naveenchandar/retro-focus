@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUserInfo } from "./contexts";
 import { bgImages } from "./database";
 import { UserForm, Home } from "./pages";
 
-function App() {
+function App(): JSX.Element {
   const { state: { userName }, dispatch } = useUserInfo();
-  const [backgroudImage, setBackgroundImage] = useState('');
+  const [backgroudImage, setBackgroundImage] = useState<string>('');
   
   useEffect(() => {
     const getName=localStorage.getItem("retro-focus");
@@ -15,7 +15,7 @@ function App() {
       type: "SET_USERNAME",
       payload: getName,
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div
