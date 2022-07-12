@@ -1,13 +1,15 @@
+import { KeyboardEvent, SyntheticEvent } from "react";
 import { useUserInfo } from "../contexts";
+import { CreateContextInterface } from "../contexts/user-context";
 
-export const UserForm = () => {
-  const { dispatch } = useUserInfo();
+export const UserForm = (): JSX.Element => {
+  const { dispatch } = useUserInfo() as CreateContextInterface;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
   };
 
-  const handleNameChange = (e) => {
+  const handleNameChange = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && e.target.value.length > 0) {
       dispatch({
         type: "SET_USERNAME",
@@ -17,7 +19,7 @@ export const UserForm = () => {
   };
 
   return (
-    <div className="text-center text-white font-bold h-screen flex justify-center	items-center flex-col	z-10">
+    <div>
       <div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl">Hello, What's your name?</h1>
       </div>

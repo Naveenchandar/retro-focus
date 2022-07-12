@@ -1,8 +1,8 @@
 import React from "react";
 import { Focus, GetTimeAndDate, Quotes, Weather } from "../components";
-import { Todo } from "../components/Todo";
+import { Todos } from "../components/Todos";
 
-export const Home = () => {
+export const Home = (): JSX.Element => {
   return (
     <div className="text-center text-white font-semibold  sm:h-screen flex py-40 sm:justify-center	sm:items-center flex-col	z-10">
       <span>
@@ -22,7 +22,7 @@ export const Home = () => {
       </span>
 
       <span className="m-1">
-        <Todo />
+        <Todos />
       </span>
     </div>
   );
