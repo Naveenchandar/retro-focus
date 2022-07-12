@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useUserInfo } from "../contexts";
+import { CreateContextInterface } from "../contexts/user-context";
 
-export const GetTimeAndDate = () => {
-  const { state: { time, greetings, userName }, dispatch} = useUserInfo();
+export const GetTimeAndDate = (): JSX.Element => {
+  const { state: { time, greetings, userName }, dispatch} = useUserInfo() as CreateContextInterface;
 
   useEffect(() => {
     getTime();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time]);
 
   const getTime = () => {
