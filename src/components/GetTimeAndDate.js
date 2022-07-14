@@ -6,6 +6,7 @@ export const GetTimeAndDate = () => {
 
   useEffect(() => {
     getTime();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [time]);
 
   const getTime = () => {

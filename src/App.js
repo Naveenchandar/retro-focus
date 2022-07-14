@@ -15,7 +15,7 @@ function App() {
       type: "SET_USERNAME",
       payload: getName,
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div

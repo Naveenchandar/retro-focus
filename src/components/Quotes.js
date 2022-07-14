@@ -13,7 +13,7 @@ export const Quotes = () => {
           type: "FETCH_QUOTES",
           payload: getQuotes,
         });
-      }, []);
+      }, [dispatch]);
 
   return (
     <div className="md:text-xl font-medium">{quotesOfTheDay}</div>
