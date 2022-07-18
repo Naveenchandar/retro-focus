@@ -65,6 +65,7 @@ Once done with cloning, run `npm start` in command line. You're good to go 🎉.
 - [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 - [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [React](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
 
 ## ✍️ Author <a name = "author"></a>
 
