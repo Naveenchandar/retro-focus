@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="./src/assets/images/logo.png" alt="Retro logo"></a>
+ <img width=200px height=200px src="./public/assets/logo.png" alt="Retro logo"></a>
 </p>
 
 <h3 align="center">Retro Focus</h3>
