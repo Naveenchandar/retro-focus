@@ -88,4 +88,4 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 - Dark / Light Mode
 - Trending news
 
-***show some love by [starring](https://github.com/Naveenchandar/retro-cart-ecommerce) this repo.***
+***show some love by [starring](https://github.com/Naveenchandar/retro-focus) this repo.***
