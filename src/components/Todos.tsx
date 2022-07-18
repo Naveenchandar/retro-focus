@@ -1,34 +1,39 @@
-import { useState, useEffect } from "react";
-import { AiFillDelete } from "react-icons/ai";
-import { FaEdit } from "react-icons/fa";
+import { useState, useEffect, SyntheticEvent, KeyboardEvent } from "react";
 import { ImCross } from "react-icons/im";
 import { v4 as uuidv4 } from 'uuid';
+import { Todo } from './Todo';
 
-export const Todo = () => {
+type TodoType = {
+  id: string,
+  text: string,
+  completed?: boolean
+}
+
+export const Todos = () => {
   const [text, setText] = useState("");
-  const [todos, setTodos] = useState([]);
-  const [editId, setEditID] = useState(0);
+  const [todos, setTodos] = useState<TodoType[]>([]);
+  const [editId, setEditID] = useState("0");
   const [openTodo, setOpenTodo] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [noTodoText, setNoTodoText] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (editId) {
-      const editTodo = todos.find((i) => i.id === editId);
+      const editTodo = todos.find(({ id }) => id === editId);
       const updateTodo = todos.map((item) =>
-        item.id === editTodo.id
+        item.id === editTodo?.id
           ? (item = { id: item.id, text })
           : { id: item.id, text: item.text, completed: false }
       );
       setTodos(updateTodo);
-      setEditID(0);
+      setEditID("0");
       setText("");
       return;
     }
   };
 
-  const handleTodo = (e) => {
+  const handleTodo = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const id = uuidv4();
       const result = [...todos, { id, text, completed: false }];
@@ -38,32 +43,39 @@ export const Todo = () => {
     }
   };
 
+  const checkLocalStorageItem = (data: string | null) => {
+    if (typeof data === 'string') {
+      setTodos(JSON.parse(data));
+    }
+  }
+
   useEffect(() => {
-    setTodos(JSON.parse(localStorage.getItem("retro-todo")) || []);
+    const localTodos = localStorage.getItem("retro-todo");
+    checkLocalStorageItem(localTodos);
   }, []);
 
-  const editHandler = (id) => {
-    const editTodo = todos.find((elem) => elem.id === id);
-    setText(editTodo.text);
-    setEditID(id);
+  const editHandler = (editId: string) => {
+    const editTodo = todos.find(({ id }) => id === editId);
+    setText(editTodo?.text || '');
+    setEditID(editId);
   };
 
-  const deleteHandler = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const deleteHandler = (deleteId: string) => {
+    setTodos(todos.filter(({ id }) => id !== deleteId));
     localStorage.removeItem("retro-todo");
   };
 
-  const handleTodos = (id) => {
-    const todoToBeCompleted = todos.find((elem) => elem.id === id);
-    todoToBeCompleted.completed = !todoToBeCompleted.completed;
+  const handleTodos = (todoId: string) => {
+    const todoToBeCompleted = todos.find(({ id }) => id === todoId) as TodoType;
+    todoToBeCompleted.completed = !todoToBeCompleted?.completed;
     const completedTodos = [
-      ...todos.filter((todo) => todo.id !== id),
+      ...todos.filter((todo) => todo.id !== todoId),
       todoToBeCompleted,
-    ];
+    ] as TodoType[];
     setTodos(completedTodos);
   };
 
-  const filterTodoBySearchText = (targetValue) => {
+  const filterTodoBySearchText = (targetValue: string) => {
     setSearchText(targetValue);
     if (targetValue) {
       const filterValues = todos.filter(({ text }) => text?.includes(targetValue))
@@ -76,7 +88,8 @@ export const Todo = () => {
       }
     } else {
       setNoTodoText('');
-      setTodos(JSON.parse(localStorage.getItem("retro-todo")) || []);
+      const localTodos = localStorage.getItem("retro-todo");
+      checkLocalStorageItem(localTodos);
     }
   }
 
@@ -113,33 +126,15 @@ export const Todo = () => {
             {noTodoText && <span className="text-sm">{noTodoText}</span>}
             <ul>
               {todos.map(({ id, text, completed }) => (
-                <li
-                  className="flex items-center justify-start gap-1"
+                <Todo
                   key={id}
-                  style={{ textDecoration: completed ? "line-through" : "none" }}
-                >
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 cursor-pointer"
-                    name={text}
-                    value={text}
-                    onClick={() => handleTodos(id)}
-                    title="Strike Todo"
-                  />
-                  <span className="sm:text-xl m-0.5">{text}</span>
-                  <span
-                    className="px-1.5 text-lime-400 cursor-pointer"
-                    onClick={() => editHandler(id)}
-                  >
-                    <FaEdit size={18} title="Edit Todo" />
-                  </span>
-                  <span
-                    className="text-red-600 cursor-pointer"
-                    onClick={() => deleteHandler(id)}
-                  >
-                    <AiFillDelete size={20} title="Delete Todo" />
-                  </span>
-                </li>
+                  text={text}
+                  completed={completed}
+                  editHandler={editHandler}
+                  id={id}
+                  deleteHandler={deleteHandler}
+                  handleTodos={handleTodos}
+                />
               ))}
             </ul>
           </div>

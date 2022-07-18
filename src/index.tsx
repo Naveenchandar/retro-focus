@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import { UserProvider } from './contexts';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const modalRoot = document.getElementById('root') as HTMLElement;
+const root = ReactDOM.createRoot(modalRoot);
 root.render(
   <React.StrictMode>
     <UserProvider>

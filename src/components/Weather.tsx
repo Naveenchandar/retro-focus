@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
-export const Weather = () => {
-  const [temp, setTemp] = useState('');
+export const Weather = (): JSX.Element => {
+  const [temp, setTemp] = useState(0);
   const [location, setLocation] = useState('');
   const [image, setImage] = useState('');
   const [locationErr, setLocationErr] = useState('');
@@ -16,7 +16,7 @@ export const Weather = () => {
             async function (success) {
               try {
                 const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${success.coords.latitude}&lon=${success.coords.longitude}&units=metric&appid=${"687323c4b6d49653323ab7e2574d10f4"}`;
-                const { status, data } = await axios.get(URL);
+                const { status, data }: AxiosResponse = await axios.get(URL);
                 if (status === 200) {
                   const { name, main, weather } = data;
                   setLocation(name);
@@ -26,7 +26,7 @@ export const Weather = () => {
                   throw new Error('Unable to retrieve a location');
                 }
               } catch (error) {
-                setLocationErr(error.message);
+                setLocationErr((error as Error).message);
               }
             },
             function (error) {
@@ -37,7 +37,7 @@ export const Weather = () => {
           setLocationErr('Sorry, your browser does not support HTML5 geolocation');
         }
       } catch (error) {
-        setLocationErr(error.message);
+        setLocationErr((error as Error).message);
       }
     })();
   }, []);

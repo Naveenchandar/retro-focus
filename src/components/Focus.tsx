@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, KeyboardEvent, FormEvent } from "react";
 import { useUserInfo } from "../contexts";
+import { CreateContextInterface } from "../contexts/user-context";
 
-export const Focus = () => {
-  const { state: { tasks }, dispatch } = useUserInfo();
+export const Focus = (): JSX.Element => {
+  const { state: { tasks }, dispatch } = useUserInfo() as CreateContextInterface;
 
-  const [mainFocus, setMainFocus] = useState(null);
+  const [mainFocus, setMainFocus] = useState('');
   const [focusCompleted, setFocusCompleted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
-  const handleFocus = (e) => {
+  const handleFocus = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && e.target.value.length > 0) {
       dispatch({
         type: "ADD_UPDATE_TASKS",
@@ -23,7 +24,8 @@ export const Focus = () => {
 
   const completeFocus = () => {
     setFocusCompleted((prev) => !prev);
-    let data = JSON.parse(localStorage.getItem("retro-tasks"));
+    const localData = localStorage.getItem("retro-tasks");
+    let data = JSON.parse(localData || "");
     data.completed = !data.completed;
     localStorage.setItem("retro-tasks", JSON.stringify(data));
   }
